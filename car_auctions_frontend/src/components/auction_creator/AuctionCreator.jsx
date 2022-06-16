@@ -10,26 +10,56 @@ const {Option} = Select;
 
 const AuctionCreator = () =>{
     let fileList = []
+    const [form] = Form.useForm()
+    const onFinish = (values) => {
+        console.log('Received values of form: ', values);
+    };
     return(
         <Content>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                 <PageHeader className="site-page-header" title="Utwórz Aukcje"  subTitle="Utwórz nową aukcje"/>
                 <div>
-                    <Form labelCol={{span: 4}} wrapperCol={{span:14}}>
-                        <Form.Item label="Tytuł aukcji">
-                            <Input />
+                    <Form onFinish={onFinish} form={form} labelCol={{span: 4}} wrapperCol={{span:14}}>
+                        <Form.Item name="auction_title" label="Tytuł aukcji">
+                            <Input required={true} id="auction_title" name="auction_title" />
                         </Form.Item>
-                        <Form.Item label="Data rozpoczęcia aukcji">
-                            <DatePicker />
+                        <Form.Item  name="start_date" label="Data rozpoczęcia aukcji">
+                            <DatePicker required={true} name="start_date" />
                         </Form.Item>
-                        <Form.Item label="Data zakończenia aukcji">
-                            <DatePicker />
+                        <Form.Item name="finish_date" label="Data zakończenia aukcji">
+                            <DatePicker required={true} name="finish_date" />
                         </Form.Item>
-                        <Form.Item label="Cena wywoławcza">
-                            <InputNumber step="0.01" min="0" /> PLN
+                        <Form.Item name="start_price" label="Cena wywoławcza (w PLN)">
+                            <InputNumber required={true} required={true} style={{width:"100%"}} step="0.01" min="0" name="start_price" />
                         </Form.Item>
-                        <Form.Item label="Rok produkcji">
-                            <Select>
+                        <Form.Item name="mileage" label="Przebieg">
+                            <InputNumber required={true} step="1" min="0" name="mileage" />
+                        </Form.Item>
+                        <Form.Item name="engine_power" label="Moc silnika">
+                            <InputNumber required={true} step="1" min="0" name="engine_power" />
+                        </Form.Item>
+                        <Form.Item name="engine_capacity" label="Pojemność silnika (w cm3)">
+                            <InputNumber required={true} style={{width:"100%"}} step="1" min="0" name="engine_capacity" />
+                        </Form.Item>
+                        <Form.Item name="petrol_type" label="Typ paliwa">
+                            <Select required={true} name="petrol_type">
+                                <Option value="LPG">LPG</Option>
+                                <Option value="ELECTRIC">ELEKTRYCZNY</Option>
+                                <Option value="PETROL">BENZYNA</Option>
+                                <Option value="DIESEL">DIESEL</Option>
+                                <Option value="HYBRID">HYBRYDA</Option>
+                                <Option value="CNG">CNG</Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item name="type_body" label="Rodzaj nadwozia">
+                            <Select required={true} name="type_body">
+                                <Option value="SEDAN">SEDAN</Option>
+                                <Option value="HATCHBACK">HATCHBACK</Option>
+                                <Option value="KOMBI">KOMBI</Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item label="Rok produkcji" name="production_year">
+                            <Select required={true} name="production_year">
                                 <Option value="1990">1990</Option>
                                 <Option value="1991">1991</Option>
                                 <Option value="1992">1992</Option>
@@ -65,19 +95,19 @@ const AuctionCreator = () =>{
                                 <Option value="2022">2022</Option>
                             </Select>
                         </Form.Item>
-                        <Form.Item label="Opis pojazdu">
-                            <TextArea rows={10} />
+                        <Form.Item label="Opis pojazdu" name="description">
+                            <TextArea required={true} name="description" rows={10} />
                         </Form.Item>
-                        <Form.Item label="Dodaj zdjęcia">
-                        <Upload
-                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                            listType="picture"
-                            defaultFileList={[...fileList]}>
-                            <Button icon={<UploadOutlined />}>Upload</Button>
-                        </Upload>
+                        <Form.Item label="Dodaj zdjęcia" name="photos">
+                            <Upload name="photos"
+                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                listType="picture"
+                                defaultFileList={[...fileList]}>
+                                <Button icon={<UploadOutlined />}>Upload</Button>
+                            </Upload>
                         </Form.Item>
                         <Form.Item label=" ">
-                            <Button>Zapisz</Button>
+                            <Button htmlType="submit">Zapisz</Button>
                         </Form.Item>
                     </Form>
                 </div>
