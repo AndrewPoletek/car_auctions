@@ -4,12 +4,14 @@ import LoginForm from "./components/login_form/login_form";
 import BaseTemplate from "./components/base_template/base_template";
 import AuctionsList from "./components/auctions_list/AuctionsList";
 import AuctionCreator from "./components/auction_creator/AuctionCreator";
+import Cerber from "./components/cerber/cerber";
 
 class RouterApp extends React.Component{
     render(){
         return(
             <Router>
                 <Routes>
+                    <Route path="/" element={<Cerber />} />
                     <Route path="/login" element={<LoginForm />} />
                     <Route path="/app" element={<BaseTemplate />} >
                         <Route path="list" element={<AuctionsList />} />

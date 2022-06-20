@@ -1,0 +1,11 @@
+{% extends 'index.html' %}
+{% block 'content' %}
+CREATE AUCTION
+    <form method="post">
+    {% for f in form %}
+        {{ f.label }}{{ f }}<br/>
+    {% endfor %}
+    {% csrf_token %}
+    <button type="submit">Wyślij</button>
+    </form>
+{% endblock %}

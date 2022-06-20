@@ -18,18 +18,27 @@ class Auction(models.Model):
         ('CNG', 'CNG'),
     ]
 
-    title = models.CharField(max_length=250)
-    description = models.TextField(max_length=10000)
-    engine_power = models.IntegerField()
-    engine_capacity = models.IntegerField()
-    type_body= models.CharField(choices=BODY_TYPES, max_length=150)
-    production_year = models.IntegerField()
-    mileage = models.IntegerField()
-    petrol_type = models.CharField(choices=PETROL_TYPES, max_length=150)
-    start_price = models.DecimalField(decimal_places=2, max_digits=99)
-    start_date = models.DateField()
-    end_date = models.DateField()
-    active = models.BooleanField(default=True)
+    title = models.CharField(max_length=250, verbose_name="Tytuł aukcji")
+    description = models.TextField(max_length=10000, verbose_name="Opis pojazdu")
+    engine_power = models.IntegerField(verbose_name="Moc silnika")
+    engine_capacity = models.IntegerField(verbose_name="Pojemność silnika")
+    type_body= models.CharField(choices=BODY_TYPES, max_length=150, verbose_name="Rodzaj nadwozia")
+    production_year = models.IntegerField(verbose_name="Data produkcji")
+    mileage = models.IntegerField(verbose_name="Przebieg")
+    petrol_type = models.CharField(choices=PETROL_TYPES, max_length=150, verbose_name="Rodzaj paliwa")
+    start_price = models.DecimalField(decimal_places=2, max_digits=99, verbose_name="Cena wywoławcza")
+    start_date = models.DateField(verbose_name="Początek aukcji")
+    end_date = models.DateField(verbose_name="Koniec aukcji")
+    active = models.BooleanField(default=True, verbose_name="Czy aktywować?")
+    owner = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="Właściciel")
+
+    @property
+    def get_last_price(self):
+        price = self.priceproposal_set.last()
+        if price:
+            return price.price
+        else:
+            return self.start_price
 
 
 class PriceProposal(models.Model):

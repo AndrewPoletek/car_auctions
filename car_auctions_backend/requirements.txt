@@ -2,3 +2,4 @@ django==3.2.13
 graphene==2.1.7
 graphene-django==2.15.0
 filters-django==1.0.5
+django-bootstrap5==21.3
