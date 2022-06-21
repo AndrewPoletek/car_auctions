@@ -4,8 +4,8 @@ from .models import Auction
 
 
 class AuctionForm(ModelForm):
-    start_date = forms.DateField(widget=forms.SelectDateWidget())
-    end_date = forms.DateField(widget=forms.SelectDateWidget())
+    start_date = forms.DateTimeField(widget=forms.TextInput(attrs={"type":"datetime-local"}))
+    end_date = forms.DateTimeField(widget=forms.TextInput(attrs={"type":"datetime-local"}))
     class Meta:
         model = Auction
         exclude = ['owner', 'active']

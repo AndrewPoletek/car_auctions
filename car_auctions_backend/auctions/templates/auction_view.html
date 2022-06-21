@@ -42,6 +42,62 @@
 </div>
 <div><h3>Opis pojazdu</h3></div>
 <div>{{ auction.description }}</div>
-
+<div>
+    <div>
+        {% if still_active %}
+            <h4>Licytuj</h4>
+            <div>
+                <input type="number" id="price" name="price" value="{{ auction.get_last_price }}" step="0.01" />
+                <input type="hidden" id="auction_id" name="auction_id" value="{{ auction.id }}" />
+                {% csrf_token %}
+                <button onclick="sendBid()">Licytuj</button>
+            </div>
+        {% else %}
+            <h4>Aukcja zakończona</h4>
+            <div>
+                Sprzedano za: {{ auction.get_last_price }}
+            </div>
+        {% endif %}
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Login</td>
+                <td>Data</td>
+                <td>Kwota</td>
+            </tr>
+            </thead>
+            <tbody>
+                {% for propose in proposals %}
+                    <tr>
+                        <td>{{ propose.owner.username }}</td>
+                        <td>{{ propose.datetime_propose }}</td>
+                        <td>{{ propose.price }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
+</div>
+<script>
+async function sendBid(){
+    let auction_id = document.getElementById("auction_id").value;
+    let price = document.getElementById("price").value;
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    res = await fetch('/bid',{
+        method: "POST",
+        mode: "same-origin",
+        headers: {
+            "Content-Type": 'application/json',
+            "X-CSRFToken": csrftoken,
+        },
+        body: JSON.stringify({
+            "price": price, "auction_id": auction_id
+        })
+    })
+    location.reload()
+}
+</script>
 {% endblock %}
