@@ -1,6 +1,47 @@
 {% extends 'index.html' %}
 {% block 'content' %}
-<div style="display: flex; flex-wrap: wrap;" class="container">
-AUCTION VIEW
+<div class="container">
+<div><h1>{{ auction.title }}</h1></div>
+    <div>
+        <img src="/{{ auction.photo }}" class="card-img-top" alt="...">
+    </div>
+<div>
+    <table class="table">
+        <tbody>
+            <tr>
+              <td>Moc silnika</td>
+              <td>{{ auction.engine_power }}</td>
+            </tr>
+            <tr>
+                <td>Pojemność silnika</td>
+                <td>{{ auction.engine_capacity }}</td>
+            </tr>
+            <tr>
+                <td>Rodzaj nadwozia</td>
+                <td>{{ auction.type_body }}</td>
+            </tr>
+            <tr>
+                <td>Rok produkcji</td>
+                <td>{{ auction.production_year }}</td>
+            </tr>
+            <tr>
+                <td>Przebieg</td>
+                <td>{{ auction.mileage }}</td>
+            </tr>
+            <tr>
+                <td>Rodzaj paliwa</td>
+                <td>{{ auction.petrol_type }}</td>
+            </tr>
+            <tr>
+                <td>Aukcja do</td>
+                <td>{{ auction.end_date }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div><h3>Opis pojazdu</h3></div>
+<div>{{ auction.description }}</div>
+
 </div>
 {% endblock %}

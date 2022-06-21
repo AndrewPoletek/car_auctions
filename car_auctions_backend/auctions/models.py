@@ -31,6 +31,7 @@ class Auction(models.Model):
     end_date = models.DateField(verbose_name="Koniec aukcji")
     active = models.BooleanField(default=True, verbose_name="Czy aktywować?")
     owner = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="Właściciel")
+    photo = models.ImageField(null=True, upload_to='media/')
 
     @property
     def get_last_price(self):

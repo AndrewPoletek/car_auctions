@@ -17,8 +17,6 @@ class CreateAuction(LoginRequiredMixin, FormView):
     template_name = 'create_auction.html'
     form_class = AuctionForm
     success_url = '/'
-    # def get(self, request, *args, **kwargs):
-    #     return render(request, 'create_auction.html')
     def form_valid(self, form):
         new_auction = form.save(commit=False)
         new_auction.owner = self.request.user
@@ -28,8 +26,8 @@ class CreateAuction(LoginRequiredMixin, FormView):
 
 class AuctionView(LoginRequiredMixin, DetailView):
     model = Auction
+    context_object_name = 'auction'
     template_name = 'auction_view.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(kwargs)
         return context

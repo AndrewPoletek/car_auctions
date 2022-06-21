@@ -1,11 +1,17 @@
 {% extends 'index.html' %}
 {% block 'content' %}
-CREATE AUCTION
-    <form method="post">
+    <div class="container">
+    <h1>Utwórz aukcję</h1>
+    <form method="post" enctype="multipart/form-data">
+    <table>
     {% for f in form %}
-        {{ f.label }}{{ f }}<br/>
+        <tr>
+            <td>{{ f.label }}</td><td>{{ f }}</td>
+        </tr>
     {% endfor %}
+    </table>
     {% csrf_token %}
     <button type="submit">Wyślij</button>
     </form>
+    </div>
 {% endblock %}
