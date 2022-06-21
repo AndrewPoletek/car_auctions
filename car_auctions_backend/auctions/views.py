@@ -45,7 +45,10 @@ class ProposalPriceView(APIView):
     authentication_classes = [authentication.SessionAuthentication,]
     permission_classes = [permissions.IsAuthenticated,]
     def post(self, request):
-        auction = Auction.objects.get(pk=request.data['auction_id'])
+        try:
+            auction = Auction.objects.get(pk=request.data['auction_id'])
+        except auction.DoesNotExist:
+            return Response({"error": "Taka aukcja nie istnieje"})
         if auction.end_date < timezone.now():
             return Response({'error': 'Licytacja Zakończona'}, status=402)
         proposal_price = request.data['price']
